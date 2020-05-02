@@ -6,6 +6,11 @@ T_m = 273.
 L = 333.73
 rho = 1000.
 
+U_m = 0
+U_ = c_1*T_m/L
+beta = K_2/K_1
+gamma = c_2/c_1
+
 b = 3.
 
 eps = c_1/L

@@ -3,14 +3,6 @@ import numpy as np
 from constants import *
 from plot import plot
 
-U_m = 0
-U_ = c_1*T_m/L
-beta = K_2/K_1
-gamma = c_2/c_1
-
-
-print(dt, dx, gamma)
-
 def get_kappa(U_in):
     left_melt = (U_in > U_m)
     right_melt = (U_in > U_m)
@@ -128,7 +120,8 @@ def main(bound_ops, init_ops):
     case = bound+'-type Boundary Case'
     save = bound+'_'+init+'.png'
 
-    plot(U, s, case, save)
+    ts = np.array([0, round(nt/100), round(nt/2), nt-1])
+    plot(U, s, ts, case)
 
 if __name__ == "__main__":
     for j in range(3):

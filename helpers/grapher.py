@@ -2,9 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from constants import nt, dt, nx, dx
 
-def plot(U, s, title, bound, save=None):
-    ts = np.array([0, round(nt/100), round(nt/2), nt-1])
-    
+def plot_complete(U, s, points, title, bound, save=None):    
     fig, (ax1, ax2) = plt.subplots(1, 2)
     fig.suptitle(title)
     fig.set_size_inches(13.5, 5.5)
@@ -19,7 +17,7 @@ def plot(U, s, title, bound, save=None):
     # ts = list(np.arange(0, 100, 10))
     ax2.plot(np.arange(nx+1)*dx, U[:,0],label='t=0')
     strt = 0 if bound == "Dirichlet" else 1
-    for n in ts[1:]:
+    for n in points[1:]:
         t = round(n*dt, 2)
         ax2.plot(np.arange(nx+1-strt)*dx, U[strt:,n], label='t='+str(t))
 
@@ -32,4 +30,6 @@ def plot(U, s, title, bound, save=None):
     if save:
         fig.savefig(save, dpi=100)
     plt.show()
-    
+
+def plot_u(U, points, save=None):
+    ts = np.array([0, round(nt/100), round(nt/2), nt-1])    
