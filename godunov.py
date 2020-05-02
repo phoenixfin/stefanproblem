@@ -7,8 +7,6 @@ U_m = 0
 U_ = c_1*T_m/L
 beta = K_2/K_1
 gamma = c_2/c_1
-eps = c_1/L
-b = 3.
 
 
 print(dt, dx, gamma)
