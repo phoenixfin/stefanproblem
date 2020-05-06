@@ -1,3 +1,4 @@
+# physical constants
 c_1 = 4.1868
 c_2 = 1.7
 K_1 = 0.0006
@@ -6,19 +7,25 @@ T_m = 273.
 L = 333.73
 rho = 1000.
 
-U_m = 0
+# problem domain
+l = 5.
+T = 10.
+a = 5.
+b = 0.
+
+# scaled parameter
+U_m = 0.
 U_ = c_1*T_m/L
 beta = K_2/K_1
 gamma = c_2/c_1
-
-b = 3.
-
 eps = c_1/L
+zeta = K_1/(c_1*l**2*rho)
+t0 = T
 
-l = 10.
-t0 = 200.
+# discretization
 nx = 100
-nt = 2000
-
+nt = 100000
 dx = l/nx
 dt = t0/nt
+
+print(dt/dx)
