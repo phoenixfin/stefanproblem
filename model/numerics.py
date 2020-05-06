@@ -1,7 +1,7 @@
 import numpy as np
 
-from constants import *
-from plot import plot
+from helpers.constants import *
+from helpers.grapher import plot_both
 
 def get_kappa(U_in):
     left_melt = (U_in > U_m)
@@ -64,14 +64,7 @@ def F(x, typ):
     elif typ == 'parabolic':
         return U_m + up*(10/18)*(x-b)**2
 
-bound_types = ['Dirichlet', 'Neumann', 'Robin']
-init_types = ['none','constant', 'linear', 'parabolic']
-
-def main(bound_ops, init_ops):
-    bound = bound_types[bound_ops]
-    init = init_types[init_ops]
-    koef = 0.1
-
+def main(bound, init="none", plot=False):
     U = np.zeros([nx+1, nt])
     E = np.zeros([nx, nt])
     q = np.zeros([nx+1, nt])
@@ -88,21 +81,18 @@ def main(bound_ops, init_ops):
     for n in range(nt):
         q[nx, n] = 0.
         if bound == 'Dirichlet':
-            U[0, n] = U_m + 5*koef
+            U[0, n] = U_m + eps*a
             q[0, 0] = get_q(U[:, 0], 0)            
         elif bound == 'Neumann':
             U[0, 0] = F(0, init)
-            q[0, n] = koef
+            q[0, n] = a*eps
         elif bound == 'Robin':
             U[0, 0] = F(0, init)
-            q[0, 0] = 5*koef*(U[0,0] + 0.2)
+            q[0, 0] = 5*a*(U[0,0] + 0.2)
         E[0, 0] = get_E_init(U[0, 0])
 
     # Main iterations
     for n in range(nt-1):
-        if n<=3:
-            print(n,'\n', U[:, n],'\n', E[:, n],'\n', q[:, n])
-
         if bound != "Dirichlet":
             U[0, n+1] = get_U(E[0,n])
         if bound == "Robin":
@@ -117,13 +107,10 @@ def main(bound_ops, init_ops):
         s[n+1] = get_s(E[:,n+1])
 
     # plotting
-    case = bound+'-type Boundary Case'
-    save = bound+'_'+init+'.png'
-
-    ts = np.array([0, round(nt/100), round(nt/2), nt-1])
-    plot(U, s, ts, case)
-
-if __name__ == "__main__":
-    for j in range(3):
-        for j1 in range(3):
-            main(j, j1)
+    if plot:
+        case = bound+'-type Boundary Case'
+        save = bound+'_'+init+'.png'
+        ts = np.array([0, round(nt/100), round(nt/2), nt-1])
+        plot_both(U, s, ts, case, bound)
+    
+    return U, s
