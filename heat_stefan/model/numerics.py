@@ -53,14 +53,14 @@ def get_U(E_in):
         return U_m
 
 def F(x, typ):
-    up = 0.01
+    up = 1.*eps
     if x >= b: return U_m
     if typ == 'none':
         return U_m
     elif typ == 'constant':
         return U_m + up
     elif typ == 'linear':
-        return U_m + up*(1.- x/b)
+        return U_m + 2*up*(1.- x/b)
     elif typ == 'parabolic':
         return U_m + up*(10/18)*(x-b)**2
 

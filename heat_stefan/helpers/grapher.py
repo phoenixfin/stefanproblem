@@ -74,3 +74,15 @@ def plot_compare_s(*args, vary='color', save=None):
         s, kwargs['label'] = data
         plt.plot(np.arange(nt)*dt, s, **kwargs)
     setup(default_info['s'], save=save)
+    
+def plot_compare_u(*args, vary='color', save=None):
+    for i, data in enumerate(args):
+        kwargs = {}        
+        if vary=='marker':
+            kwargs['marker'] = marker_list[i]
+            kwargs['linestyle'] = None
+        elif vary == 'linestyle':
+            kwargs['linestyle'] = linestyle_list[i]
+        u, kwargs['label'] = data
+        plt.plot(np.arange(nt)*dt, s, **kwargs)
+    setup(default_info['u'], save=save)    
