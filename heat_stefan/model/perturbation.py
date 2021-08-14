@@ -4,7 +4,7 @@ from helpers.constants import *
 from helpers.grapher import plot_single_s
 
 def get_s(t, bound):
-    if bound == "Neumann":    
+    if bound in ["Neumann", "Robin"]:
         return b+eps*a*t
     elif bound == "Dirichlet":
         return sqrt(b**2 + 2*eps*a*t)

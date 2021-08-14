@@ -10,8 +10,9 @@ rho = 1000.
 # problem domain
 l = 5.
 T = 20.
-a = 40.
-b = 0.1
+a = 1.
+b = 0.
+r = 1.
 
 # scaled parameter
 U_m = 0.

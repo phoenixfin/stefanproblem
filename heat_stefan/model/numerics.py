@@ -18,6 +18,9 @@ def get_q(U_n, i):
     kap = get_kappa(U_n[i])
     return -kap*(U_n[i+1] - U_n[i])/dx
 
+def get_q_robin(U):
+    return eps * (r * U + a)
+
 def get_E(E_in, q_n, i):
     # if n<=1:
     #     print(i, n, q_n[i], q_n[i+1], E_in)
@@ -32,7 +35,7 @@ def get_E_init(U_0):
 
 def get_s(E_n):
     x = 0
-    for i, e in enumerate(E_n):
+    for e in E_n:
         if e <= 0:
             lam = 0.
         elif e >= 1:
@@ -70,33 +73,33 @@ def main(bound, init="none", plot=False):
     q = np.zeros([nx+1, nt])
     s = np.zeros([nt])
 
-    # Initial condition
-    for i in range(nx):
-        U[i+1, 0] = F((i+1)*dx, init)        
-        E[i, 0] = get_E_init(U[i, 0])
-        q[i, 0] = get_q(U[:, 0], i)
-    s[0] = b if init != 'none' else 0
-
     # Boundary condition
     for n in range(nt):
         q[nx, n] = 0.
         if bound == 'Dirichlet':
             U[0, n] = U_m + eps*a
-            q[0, 0] = get_q(U[:, 0], 0)            
+            q[0, 0] = get_q(U[:, 0], 0)
         elif bound == 'Neumann':
             U[0, 0] = F(0, init)
             q[0, n] = a*eps
         elif bound == 'Robin':
             U[0, 0] = F(0, init)
-            q[0, 0] = 5*a*(U[0,0] + 0.2)
+            q[0, 0] = get_q_robin(U[0,0])
         E[0, 0] = get_E_init(U[0, 0])
+
+    # Initial condition
+    for i in range(nx):
+        U[i+1, 0] = F((i+1)*dx, init)
+        E[i, 0] = get_E_init(U[i, 0])
+        q[i, 0] = get_q(U[:, 0], i)
+    s[0] = b if init != 'none' else 0
 
     # Main iterations
     for n in range(nt-1):
         if bound != "Dirichlet":
             U[0, n+1] = get_U(E[0,n])
         if bound == "Robin":
-            q[0, n+1] = 5*koef*(U[0, n+1] + 0.2)
+            q[0, n+1] = get_q_robin(U[0, n+1])
         for i in range(nx):
             if i != nx-1:
                 U[i+1, n+1] = get_U(E[i,n])
