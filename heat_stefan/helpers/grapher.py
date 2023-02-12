@@ -74,6 +74,7 @@ def plot_compare_s(*args, vary='color', save=None):
         if vary=='marker':
             kwargs['marker'] = marker_list[i]
             kwargs['linestyle'] = None
+            kwargs['color'] = 'k'
         elif vary == 'linestyle':
             kwargs['linestyle'] = linestyle_list[i]
         s, kwargs['label'] = data

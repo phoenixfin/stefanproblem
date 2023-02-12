@@ -1,10 +1,10 @@
 
-from model import numerics, exact, perturbation
+from model import numerics, exact, perturbation, parhizi
 from helpers.grapher import plot_compare_s, plot_compare_e
 
 bound_types = ['Dirichlet', 'Neumann', 'Robin']
 init_types = ['none','constant', 'linear', 'parabolic']
-method = ['exact', 'numerics', 'perturbation']
+method = ['exact', 'perturbation', 'parhizi']
 
 def compare_all_method(typ):    
     compare_methods(typ, method)
@@ -18,7 +18,7 @@ def compare_methods(typ, meths):
         u, s = func(bound)
         argss.append((s,meth))
         # argsu.append((u,meth))        
-    plot_compare_s(*argss, save = bound+'_compare.png')    
+    plot_compare_s(*argss, save = bound+'_compare.png')
     # plot_compare()
 
 def compare_with_init(typ, typ2):

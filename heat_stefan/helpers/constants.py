@@ -8,9 +8,9 @@ L = 333.73
 rho = 1000.
 
 # problem domain
-l = 5.
+l = 10.
 T = 20.
-a = 1.
+a = 10.
 b = 0.
 r = 1.
 
@@ -24,10 +24,13 @@ zeta = K_1/(c_1*l**2*rho)
 t0 = T
 
 # discretization
-nx = 100
-nt = 100000
+nx = 280
+nt = 200000
+# nt = 50
 dx = l/nx
 dt = t0/nt
 
 print(dt/dx)
 print(eps)
+print(dx, dt)
+print(beta, gamma, eps, zeta, t0, U_)

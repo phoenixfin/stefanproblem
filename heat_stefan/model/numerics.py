@@ -113,7 +113,7 @@ def main(bound, init="none", plot=False):
     if plot:
         case = bound+'-type Boundary Case'
         save = bound+'_'+init+'.png'
-        ts = np.array([0, round(nt/100), round(nt/2), nt-1])
+        ts = np.array([0, round(nt/10), round(nt/2), nt-1])
         plot_both(U, s, ts, case, bound)
     
     return U, s

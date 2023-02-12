@@ -15,6 +15,10 @@ def get_s(start, end, step):
     res = solve_ivp(s_t, [start,end], [0.0001], t_eval=evals)
     return res
 
+def similarity():
+    res = solve_ivp(s_t, [0,T], [0.0001], t_eval=evals1)
+    return res
+
 # def get_u(x,t):
 #     c_1 = ...
 #     c_2 = -eps*a
